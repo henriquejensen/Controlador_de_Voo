@@ -17,6 +17,8 @@
 
 //
 
+//      IV BA0087-23042014 CGN GUA 12:00 TM
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -71,15 +73,17 @@ int main(int argc, char const *argv[])
 
         //     busca(registro, &Arvore, 1);
         // }
-        // else if(strcmp(codigo,"RV")==0)
-        // {
-        //     strncpy(registro.aviao.chave.codigoVoo, entrada + 3, 15);
-        //     registro.aviao.chave.codigoVoo[15] = '\0';
-        //     strncpy(registro.aviao.partida, entrada + 19, 3);
-        //     registro.aviao.partida[3] = '\0';
 
-        //     remove(registro, &Arvore, 1);
-        // }
+        else if(strcmp(codigo,"RV")==0)
+        {
+            strncpy(registro.aviao.chave.codigoVoo, entrada + 3, 15);
+            registro.aviao.chave.codigoVoo[15] = '\0';
+            strncpy(registro.aviao.partida, entrada + 19, 3);
+            registro.aviao.partida[3] = '\0';
+
+            remover(registro, &Arvore, 1);
+        }
+
         // else if(strcmp(codigo,"PV")==0)
         // {
         //     strncpy(registro.aviao.chave.codigoVoo, entrada + 3, 15);

@@ -11,29 +11,23 @@ void inicializa(Apontador_No *p)
 void insere(Registro info, No **pArvore, int tipo)
 {
     char* chaveArvore;
-    char* chaveRegistro;
+    char* chaveRegistro; //o tipo é utilizado para diferenciar aviao (tipo 1) de passageiro (tipo 0)
 
     if(tipo)
-    {
-        chaveArvore = (*pArvore)->reg.passageiro.chave.passaporte;
-        chaveRegistro = info.passageiro.chave.passaporte;
-    }
-
-    else
     {
         chaveArvore = (*pArvore)->reg.aviao.chave.codigoVoo;
         chaveRegistro = info.aviao.chave.codigoVoo;
     }
 
+    else
+    {
+        chaveArvore = (*pArvore)->reg.passageiro.chave.passaporte;
+        chaveRegistro = info.passageiro.chave.passaporte;
+    }
+
     if(*pArvore == NULL)
     {
         (*pArvore) = (No *) malloc ( sizeof (No));
-
-        if(tipo)
-            (*pArvore)->reg.aviao = info.aviao;
-
-        else
-            (*pArvore)->reg.passageiro = info.passageiro;
 
         (*pArvore)->esq = NULL;
         (*pArvore)->dir = NULL;
@@ -60,14 +54,62 @@ void busca()
 {
 
 }
-
-void remove()
+*/
+void remover(Registro info, No **pArvore, int tipo)
 {
-    printf("SUCESSO\n");
+    char* chaveArvore;
+    char* chaveRegistro;
 
-    printf("ERRO\n");
+    if(tipo==1)
+    {
+        chaveArvore = (*pArvore)->reg.aviao.chave.codigoVoo;
+        chaveRegistro = info.aviao.chave.codigoVoo;
+    }
+
+    else
+    {
+        chaveArvore = (*pArvore)->reg.passageiro.chave.passaporte;
+        chaveRegistro = info.passageiro.chave.passaporte;
+    }
+    No *aux;
+
+    if(*pArvore == NULL)
+    {
+        printf("ERRO\n");
+    }
+    else if(strcmp(chaveRegistro, chaveArvore) > 0)
+        remover(info, &(*pArvore)->dir, tipo);
+    else if(strcmp(chaveRegistro, chaveArvore) < 0)
+        remover(info, &(*pArvore)->esq, tipo);
+
+    else
+    {
+        if((*pArvore)->esq == NULL && (*pArvore)->dir == NULL)
+        {
+            free(*pArvore);
+            *pArvore = NULL;
+            printf("SUCESSO\n");
+        }
+        else if((*pArvore)->esq == NULL)
+        {
+            aux = *pArvore;
+            *pArvore = (*pArvore)->dir;
+            free(aux);
+        }
+        else if((*pArvore)->dir == NULL)
+        {
+            aux = *pArvore;
+            *pArvore = (*pArvore)->esq;
+            free(aux);
+        }
+        // else
+        // {
+        //     chaveArvore = busca_maior((*pArvore->esq));
+        //     remover(info, &(*pArvore)->dir, tipo);
+        // }
+    }
 }
-
+/*
 void imprimePreOrdem()
 {
 

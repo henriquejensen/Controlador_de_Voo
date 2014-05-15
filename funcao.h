@@ -40,7 +40,7 @@ void insere(Registro info, No **pArvore, int tipo);
 
 //void busca();
 
-//void remove();
+//void remover();
 
 //void imprimePreOrdem();
 
